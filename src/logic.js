@@ -17,6 +17,7 @@ export function updateRatings(series, component){
   }
   var data=snap.val();
   component.props.updateMethod(data.title, data.seasons);
+
   });
 }
 
@@ -24,14 +25,24 @@ function getRatingsFromOMDB(series, component){
     var url=omdbPrefix+"?t="+series+"&type=series&apikey="+process.env.REACT_APP_OMDB_KEY;
     jsonp(url, null, (function (err, data) {
       if (err) {
-        component.setState({disabled:false, error: true, loading:false, errorMsg: "Can't access the server. Please try again later."});
+        component.setState({
+        disabled:false,
+        error: true,
+        loading:false,
+        errorMsg: "Can't access the server. Please try again later."
+      });
           return;
       } else {
        if(data.Title===undefined || data.totalSeasons== "N/A"){   
-          component.setState({disabled:false, error: true, loading:false, errorMsg: "Sorry, couldn't find that series :("});        
+            component.setState({
+            disabled:false,
+            error: true,
+            loading:false,
+            errorMsg: "Sorry, couldn't find that series :("
+          });        
           return;
         }
-        component.getSeasons(data.Title, parseInt(data.totalSeasons), component);
+        getSeasons(data.Title, parseInt(data.totalSeasons), component);
       }
     }));
   }
@@ -60,7 +71,12 @@ function getSeasons(series,numOfSeasons, component){
       window.history.pushState({}, series+" Ratings", "/"+series);
       
     },error=>{
-        component.setState({disabled:false, error: true, loading:false, errorMsg: "Can't access the server. Please try again later."});
+        component.setState({
+        disabled:false,
+        error: true,
+        loading:false,
+        errorMsg: "Can't access the server. Please try again later."
+      });
         return;
     });
   }
