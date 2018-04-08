@@ -9,15 +9,17 @@ var database = firebase.database();
 const omdbPrefix= "https://www.omdbapi.com/";
 
 export function updateRatings(series, component){
-  component.setState({loading:true});
-  database.ref('/'+series.toLowerCase()).once('value').then(snap =>{
-  if(!snap.exists()){
-    getRatingsFromOMDB(series, component);
+  if(series === undefined)
     return;
-  }
-  var data=snap.val();
-  component.props.updateMethod(data.title, data.seasons);
-
+  component.setState({loading:true, disabled: true});
+  database.ref('/'+series.toLowerCase()).once('value').then(snap =>{
+    if(!snap.exists()){
+      getRatingsFromOMDB(series, component);
+      return;
+    }
+    var data=snap.val();
+    component.props.updateMethod(data.title, data.seasons);
+    component.setState({loading:false, disabled: false});
   });
 }
 

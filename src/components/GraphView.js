@@ -13,9 +13,20 @@ class GraphView extends Component {
   render() {
     return(
       <div className={"App"+ (this.state.visible? " show":" hide")}>
-        <Header updateMethod={this.props.updateMethod} numOfSeasons={this.props.seasons.length} changeSeason={this.changeSeason} series={this.props.series} showSeason={this.state.showSeason} pathname={this.props.pathname}/>
+        <Header
+        updateMethod={this.props.updateMethod}
+        numOfSeasons={this.props.seasons.length}
+        changeSeason={this.changeSeason}
+        series={this.props.series}
+        showSeason={this.state.showSeason}
+        pathname={this.props.pathname}
+        />
         <h1 className="display-4 text-white text-center">{this.props.series}: {this.state.showSeason == 0 ? "All Episodes": "Season "+this.state.showSeason}</h1>
-        <Graph series={this.props.series} seasonRatings={this.props.seasons} showSeason={this.state.showSeason}></Graph>
+        <Graph
+        series={this.props.series}
+        seasonRatings={this.props.seasons}
+        showSeason={this.state.showSeason}>
+        </Graph>
         <About/>
       </div>
     );

@@ -45,7 +45,6 @@ class SearchBox extends Component{
 
   handleSubmit(event){
     event.preventDefault();
-    this.setState({disabled:true});
     updateRatings(this.state.value, this);
   }
   componentWillReceiveProps(nextProps){
@@ -68,7 +67,7 @@ class SearchBox extends Component{
   }
 
   handleSuggestionClick(value){
-    this.setState({value: value, disabled:true});
+    this.setState({value: value});
     updateRatings(value, this);
   } 
 
