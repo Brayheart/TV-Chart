@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import puff from '../puff.svg';
 import ErrorModal from './ErrorModal';
 import Suggestions from './Suggestions';
-import {updateRatings} from '../utils';
+import {updateRatings} from '../logic';
 
 
 
